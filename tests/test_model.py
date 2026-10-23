@@ -1,11 +1,13 @@
-from pathlib import Path
 import sys
+from pathlib import Path
+
+import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from preprocess import ensure_dataset, preprocess
-from train import train
+from preprocess import ensure_dataset, preprocess  # noqa: E402
+from train import train  # noqa: E402
 
 
 def test_preprocess_creates_train_and_test_files(tmp_path):

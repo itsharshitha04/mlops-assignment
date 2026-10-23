@@ -18,4 +18,5 @@ def predict(features):
 if __name__ == "__main__":
     if not MODEL_PATH.exists():
         raise SystemExit("Model not found. Run python src/preprocess.py and python src/train.py first.")
-    print("Predicted Iris class:", predict([5.1, 3.5, 1.4, 0.2]))
+    prediction = predict([5.1, 3.5, 1.4, 0.2])
+print("Predicted Iris class:", prediction)
