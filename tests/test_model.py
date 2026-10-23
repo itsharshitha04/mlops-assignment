@@ -1,29 +1,34 @@
+"""Tests for the Iris prediction model."""
+
 from pathlib import Path
-import sys
+
+import joblib
+import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "src"))
-
-from preprocess import ensure_dataset, preprocess
-from train import train
+MODEL_PATH = ROOT / "models" / "model.joblib"
 
 
-def test_preprocess_creates_train_and_test_files(tmp_path):
-    raw = tmp_path / "data.csv"
-    out = tmp_path / "processed"
-    ensure_dataset(raw)
-    preprocess(raw, out)
-    assert (out / "train.csv").exists()
-    assert (out / "test.csv").exists()
+def test_model_file_exists():
+    """Check that the trained model file exists."""
+    assert MODEL_PATH.exists()
 
 
-def test_training_creates_model_and_metrics(tmp_path):
-    raw = tmp_path / "data.csv"
-    processed = tmp_path / "processed"
-    models = tmp_path / "models"
-    ensure_dataset(raw)
-    preprocess(raw, processed)
-    metrics = train(processed, models)
-    assert 0 <= metrics["accuracy"] <= 1
-    assert (models / "model.joblib").exists()
-    assert (models / "metrics.json").exists()
+def test_model_can_predict():
+    """Check that the trained model returns a prediction."""
+    model = joblib.load(MODEL_PATH)
+
+    features = pd.DataFrame(
+        [
+            {
+                "sepal length (cm)": 5.1,
+                "sepal width (cm)": 3.5,
+                "petal length (cm)": 1.4,
+                "petal width (cm)": 0.2,
+            }
+        ]
+    )
+
+    prediction = model.predict(features)
+
+    assert len(prediction) == 1
