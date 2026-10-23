@@ -39,3 +39,6 @@ For tag deployment, make sure repository Actions permissions allow the workflow 
 Airflow is not natively supported on Windows. Use WSL2/Ubuntu or Docker for local Airflow. Copy `airflow/dags/mlops_dag.py` into your Airflow `dags` folder, set `MLOPS_PROJECT_DIR` to the project directory visible to Airflow, install the project's requirements in the Airflow environment, then start Airflow and trigger `mlops_training_pipeline`.
 
 The DAG is intended for local learning. Its "deployment" copies the best model into a `deployed/` folder; it does not deploy to a real cloud service.
+
+
+CI pipeline test through pull request.
