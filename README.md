@@ -40,5 +40,4 @@ Airflow is not natively supported on Windows. Use WSL2/Ubuntu or Docker for loca
 
 The DAG is intended for local learning. Its "deployment" copies the best model into a `deployed/` folder; it does not deploy to a real cloud service.
 
-
 CI pipeline test through pull request.
